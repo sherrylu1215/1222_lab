@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compare Numbers</title>
+  <style>
+    .color1 {
+      background-color: blue;
+      color: white;
+      font-size: 20px;
+    }
+
+    .color2 {
+      background-color: skyblue;
+    }
+  </style>
+</head>
+<body>
+
+<img id="die1" src="die1.png" alt="blank image">
+<img id="die2" src="die1.png" alt="blank image">
+<img id="die3" src="die1.png" alt="blank image">
+<img id="die4" src="die1.png" alt="blank image">
+<img id="die5" src="die1.png" alt="blank image">
+<img id="die6" src="die1.png" alt="blank image">
+<br>
+<img id="die7" src="die1.png" alt="blank image">
+<img id="die8" src="die1.png" alt="blank image">
+<img id="die9" src="die1.png" alt="blank image">
+<img id="die10" src="die1.png" alt="blank image">
+<img id="die11" src="die1.png" alt="blank image">
+<img id="die12" src="die1.png" alt="blank image">
+</br>
+
+<form action="#">
+  <input id="rollButton" type="button" value="Roll Dice">
+</form>
+
+<script>
+  function start() {
+    var button = document.getElementById("rollButton");
+    button.addEventListener("click", rollDice);
+    initializeTable();
+  }
+
+  function setImage(dieImg) {
+    var dieValue = Math.floor(1 + Math.random() * 6);
+    dieImg.setAttribute("src", "die" + dieValue + ".png");
+    dieImg.setAttribute("alt", "die image with" + dieValue + "spot(s)");
+    return dieValue;
+  }
+
+  function rollDice() {
+    var count = [0, 0, 0, 0, 0, 0];
+    var totalRolls = 0;
+
+    for (var i = 0; i < 12; i++) {
+      var dieValue = setImage(document.getElementById("die" + (i + 1)));
+      count[dieValue - 1]++;
+      totalRolls++;
+    }
+
+    updateTable(count, totalRolls);
+  }
+
+  function initializeTable() {
+    for (var i = 2; i <= 7; i++) { // Start from the second row
+      updateTableCell(i, 2, "0%");
+    }
+  }
+
+  function updateTable(count, totalRolls) {
+    for (var i = 0; i < count.length; i++) {
+      var percentage = (count[i] / totalRolls) * 100;
+      updateTableCell(i + 2, 2, percentage.toFixed(2) + "%");
+    }
+  }
+
+  function updateTableCell(row, col, value) {
+    var cell = document.querySelector("tr:nth-child(" + row + ") td:nth-child(" + col + ")");
+    if (cell) {
+      cell.innerHTML = value;
+    }
+  }
+
+  window.addEventListener("load", start);
+</script>
+
+<table border="1">
+  <!-- 表格的第一列 -->
+  <tr class="color1">
+    <td>Face</td>
+    <td>Percent</td>
+  </tr>
+
+  <!-- 表格的第二列 -->
+  <tr class="color2">
+    <td>1</td>
+    <td>Row 2, Column 2</td>
+  </tr>
+
+  <!-- 表格的第三列 -->
+  <tr class="color2">
+    <td>2</td>
+    <td>Row 3, Column 2</td>
+  </tr>
+
+  <!-- 表格的第四列 -->
+  <tr class="color2">
+    <td>3</td>
+    <td>Row 4, Column 2</td>
+  </tr>
+
+  <!-- 表格的第五列 -->
+  <tr class="color2">
+    <td>4</td>
+    <td>Row 5, Column 2</td>
+  </tr>
+
+  <!-- 表格的第六列 -->
+  <tr class="color2">
+    <td>5</td>
+    <td>Row 6, Column 2</td>
+  </tr>
+
+  <!-- 表格的第七列 -->
+  <tr class="color2">
+    <td>6</td>
+    <td>Row 7, Column 2</td>
+  </tr>
+</table>
+
+</body>
+</html>
